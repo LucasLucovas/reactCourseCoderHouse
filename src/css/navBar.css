@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav{
+    display: flex;
+    color: #F2F2F2;
+    background-color: #26150F;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 2rem; /*pone espacio en medio para que al ser otro dispositivo no se toque el site name y los links*/
+    padding: 0 1rem;
+}
+.site-title{
+    font-size: 2rem;
+}
+
+.nav ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 1rem; /*pone espacio entre los elementos de la lista*/
+}
+
+.nav a{
+    text-decoration: none;
+    color: inherit;/*sirve para heredar el color de letras de su elemento padre en este caso el nav*/
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: .25rem;
+}
+
+.nav li.active{
+    background-color: #424141;
+}
+
+.nav li:hover{
+    background-color: #593A2E;
+}
