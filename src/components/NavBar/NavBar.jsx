@@ -9,9 +9,9 @@ const NavBar = () => {
 
         <nav>
             <ul>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>Products</li>
+                <li>About</li>
+                <li>Hot Sale</li>
             </ul>
         </nav>
         <CartWidget />
