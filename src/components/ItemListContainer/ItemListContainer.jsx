@@ -7,12 +7,12 @@ const ItemListContainer = ({ greeting }) => {
 
   const [products, setProducts] = useState([])
   
-  const { categoryId } =useParams()
+  const { category } = useParams()
 
   useEffect(()=>{
-    const asyncFunc = categoryId ? getProductsByCategory : getProducts
+    const asyncFunc = category ? getProductsByCategory : getProducts
 
-      asyncFunc(categoryId)
+      asyncFunc(category)
         .then(res => {
           setProducts(res)
         })
@@ -20,11 +20,12 @@ const ItemListContainer = ({ greeting }) => {
            console.error(error);
         })
 
-  },[categoryId])
+  },[category])
 
   return (
     <div>
         <h2>{greeting}</h2>
+        {console.log(products)}
         <ItemList products={products}/>
     </div>
   )

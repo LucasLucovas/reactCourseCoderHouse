@@ -8,10 +8,10 @@ const ItemDetailContainer = () => {
 
     const [product, setProduct] = useState(null)
 
-    const { itemId } = useParams()
+    const { id } = useParams()
 
     useEffect(()=>{
-        getProductById(itemId)
+        getProductById(id)
             .then(res =>{
                 setProduct(res)
             })
@@ -19,10 +19,11 @@ const ItemDetailContainer = () => {
                 console.error(err)
             })
             
-    },[itemId])
+    },[id])
   return (
     <div className='ItemDetailContainer'>
         <ItemDetail {...product}/>
+        {console.log(product)}
     </div>
   )
 }
