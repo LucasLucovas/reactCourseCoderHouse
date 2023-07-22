@@ -9,7 +9,7 @@ import { CartProvider } from './context/CartContext'
 function App() {
 
   return (
-    <>
+    <div className='App'>
     
       <BrowserRouter>
           <CartProvider>
@@ -19,11 +19,12 @@ function App() {
                     <Route path='/category/:category' element={<ItemListContainer/>}/>
                     <Route path='/item/:id' element={<ItemDetailContainer/>}/>
                     <Route path='/cart' element={<Cart />}/>
+                    <Route path='/checkout' element={<Checkout />}/>
                     <Route path='*' element={<h1>404 NOT FOUND</h1>}/>
                   </Routes>
           </CartProvider>
       </BrowserRouter>
-    </>
+    </div>
   )
 }
 
