@@ -1,40 +1,47 @@
-import { createContext, useState } from "react"
-
+import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext({
-    cart: [],
-})
+  cart: [],
+  totalQuantity: 0,
+});
+
+export const CartProvider = ({ children }) => {
+  const [cart, setCart] = useState([]);
 
 
-export const CartProvider = ({ children }) =>{
-    const [cart, setCart] = useState([])
+  useEffect(() => {
+    const newTotalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+    setTotalQuantity(newTotalQuantity);
+  }, [cart]);
 
-    console.log(cart)
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
-    const addItem = (item, quantity) =>{
-        if(!isInCart(item.id)){
-            setCart(prev => [...prev, {...item, quantity}])
-        } else {
-            console.error("The product is already in the cart")
-        }
+  const addItem = (item, quantity) => {
+    if (!isInCart(item.id)) {
+      setCart((prev) => [...prev, { ...item, quantity }]);
+    } else {
+      console.error("The product is already in the cart");
     }
+  };
 
-    const removeItem = (itemId) =>{
-        const cartUpdated = cart.filter(prod => prod.id !== itemId)
-        setCart(cartUpdated)
-    }
+  const removeItem = (itemId) => {
+    const cartUpdated = cart.filter((prod) => prod.id !== itemId);
+    setCart(cartUpdated);
+  };
 
-    const clearCart = () =>{
-        setCart([])
-    }
+  const clearCart = () => {
+    setCart([]);
+  };
 
-    const isInCart = (itemId) =>{
-        return cart.some(prod => prod.id === itemId)
-    }
+  const isInCart = (itemId) => {
+    return cart.some((prod) => prod.id === itemId);
+  };
 
-    return (
-        <CartContext.Provider value={{cart, addItem, removeItem, clearCart}}>
-            { children }
-        </CartContext.Provider>
-    )
-}
+  return (
+    <CartContext.Provider
+      value={{ cart, addItem, removeItem, clearCart, totalQuantity }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};
