@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./CheckoutForm.css"
 
 const CheckoutForm = ({ onConfirm }) => {
   const [name, setName] = useState('');
@@ -8,14 +9,11 @@ const CheckoutForm = ({ onConfirm }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate the form inputs here (e.g., check if name, phone, and email are not empty)
-
-    // Call the onConfirm prop to create the order with the provided data
     onConfirm({ name, phone, email });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='CheckoutForm' onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />

@@ -1,30 +1,55 @@
-header {
+/* Navigation bar container styles */
+.navBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 10px 20px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Logo styles */
+.navBar h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0;
+  text-decoration: none;
+}
+
+/* Navigation links container styles */
+.categories {
+  display: flex;
+  gap: 20px;
+}
+
+/* Navigation link styles */
+.categories .Option {
+  font-size: 1rem;
+  color: #333;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.categories .ActiveOption {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.categories .Option:hover {
   background-color: #f2f2f2;
 }
 
-h1 {
-  margin: 0;
+/* Remove underlines from links */
+.categories .Option,
+.categories .ActiveOption{
+  text-decoration: none;
 }
 
-nav ul {
-  list-style: none;
+
+/* CartWidget styles */
+.CartWidget {
   display: flex;
-  margin: 0;
-  padding: 0;
+  align-items: center;
 }
-
-nav ul li {
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-nav ul li:hover {
-  text-decoration: underline;
-}
-
-
-  

@@ -8,17 +8,13 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false);
   const [orderId, setOrderId] = useState('');
 
-  const { cart, clearCart } = useContext(CartContext);
+  const { cart, clearCart, total } = useContext(CartContext);
 
-  const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
 
   const createOrder = async ({ name, phone, email }) => {
     setLoading(true);
 
     try {
-      const total = calculateTotal();
 
       if (typeof total !== 'number' || isNaN(total) || total <= 0) {
         console.error('Error creating order: Invalid total value.');
