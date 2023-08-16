@@ -1,4 +1,4 @@
-import './CartItem.css';
+
 
 const CartItem = ({ id, title, price, quantity }) => {
   return (

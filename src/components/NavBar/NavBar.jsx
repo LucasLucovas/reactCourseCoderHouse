@@ -1,26 +1,38 @@
-import React from 'react'
-import CartWidget from '../CartWidget/CartWidget'
-import "./NavBar.css"
-import { NavLink, Link } from 'react-router-dom'
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button, Container} from '@mui/material';
+import SearchBar from '../SearchBar/SearchBar';
+import CartWidget from '../CartWidget/CartWidget';
 
 const NavBar = () => {
+
   return (
-
-    
-    <nav className='navBar'>
-    <Link to={'/'}>
-        <h1>Best Random Ecommerce</h1>
-    </Link>
-          <div className='categories'>
-            <NavLink to={`/category/men's clothing`} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'}>Men's clothing</NavLink>
-            <NavLink to={`/category/jewelery`} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'}>Jewelery</NavLink>
-            <NavLink to={`/category/electronics`} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'}>Electronics</NavLink>
-            <NavLink to={`/category/women's clothing`} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'}>Women's Clothing</NavLink>
+    <AppBar position="fixed">
+      <Container>
+        <Toolbar>
+          <Typography variant="h6" component={RouterLink} to="/" sx={{ flexGrow: 1, color: 'common.white', textDecoration: 'none' }}>
+            Best Random Ecommerce
+          </Typography>
+          <SearchBar/>
+          <div sx={{ display: 'flex', gap: 2, marginLeft: 2 }}>
+            <Button component={RouterLink} to="/category/men's clothing" sx={{ color: 'common.white', textDecoration: 'none'}}>
+              Men's clothing
+            </Button>
+            <Button component={RouterLink} to="/category/jewelery" sx={{ color: 'common.white', textDecoration: 'none'}}>
+              Jewelry
+            </Button>
+            <Button component={RouterLink} to="/category/electronics" sx={{ color: 'common.white', textDecoration: 'none'}}>
+              Electronics
+            </Button>
+            <Button component={RouterLink} to="/category/women's clothing" sx={{ color: 'common.white', textDecoration: 'none'}}>
+              Women's Clothing
+            </Button>
           </div>
-        <CartWidget />
-    </nav>
+          <CartWidget />
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+};
 
-  )
-}
-
-export default NavBar
+export default NavBar;

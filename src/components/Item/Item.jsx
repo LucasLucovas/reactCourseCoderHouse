@@ -1,19 +1,48 @@
-import './item.css'
 import { Link } from 'react-router-dom'
+
+//Mui imports
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { grey, teal, indigo } from '@mui/material/colors'
+
+const color = {
+  grey: grey[500],
+  teal: teal[300],
+  indigo: indigo[400]
+}
+
+
+
 
 const Item = ({id, title, image, price, stock}) => {
   return (
-
-    <div className="card">
-        <img src={image} alt={title} className="card-image" />
-        <div className="card-content">
-            <h2 className="card-title">{title}</h2>
-            <p className="card-description">Price: ${price}</p>
-            <p className="card-description">Stock: {stock}</p>
-            <Link to={`/item/${id}`} className="card-button">See Details</Link>
-        </div>
-    </div>
-
+      <Card sx={{ maxWidth: 345 }}>
+          <CardMedia
+            sx={{ height: 200 }}
+            image={image}
+            title={title}
+          />
+          <CardContent>
+              <Typography gutterBottom variant="h6" component="div">
+                  {title}
+              </Typography>
+              <Typography variant="body2" color={color.teal}>
+                  ${price}
+              </Typography>
+              <Typography mt={1} variant="body2" color={color.indigo}>
+                  Stock: {stock}
+              </Typography>
+          </CardContent>
+          <CardActions>
+              <Button variant='outlined' component={Link} to={`/item/${id}`}>
+                  See Details
+              </Button>
+          </CardActions>
+      </Card>
   )
 }
 

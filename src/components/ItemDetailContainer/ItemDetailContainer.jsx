@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import './ItemDetailContainer.css'
 import ItemDetail from '../ItemDetail/ItemDetail'
 import { useParams } from 'react-router-dom'
 
 import { getDoc, doc } from 'firebase/firestore'
 import { db } from '../firebase/config'
+import { Grid } from '@mui/material'
 
 const ItemDetailContainer = () => {
     const [product, setProduct] = useState(null)
@@ -28,9 +28,11 @@ const ItemDetailContainer = () => {
             
     }, [id])
   return (
-    <div className='ItemDetailContainer'>
-        <ItemDetail {...product}/>
-    </div>
+      <Grid container justifyContent={"center"} alignContent={"center"} height={'100vh'} overflow={'hidden'} bgcolor={'beige'}>
+        <Grid item mb={10}>
+            <ItemDetail {...product}/>
+        </Grid>
+      </Grid>
   )
 }
 

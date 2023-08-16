@@ -9,4 +9,7 @@ export default defineConfig({
   build: {
     publicDir: 'public',
   },
+  server: {
+    port: 3001, 
+  },
 });
