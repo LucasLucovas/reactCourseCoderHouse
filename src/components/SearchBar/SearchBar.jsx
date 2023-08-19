@@ -1,47 +1,59 @@
 import React, { useState } from 'react';
-import { Button, TextField, InputAdornment, Container, Grid } from '@mui/material';
+import { Button, TextField, InputAdornment, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { db } from '../firebase/config';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import Item from '../Item/Item';
+import Fuse from 'fuse.js';
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
 
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+    const newSearchTerm = event.target.value;
+    setSearchTerm(newSearchTerm);
 
-  const handleSearchSubmit = async (event) => {
-    event.preventDefault();
+    const options = {
+      includeScore: true,
+      keys: ['title', 'description'],
+      threshold: 0.4,
+    };
 
     const productsRef = collection(db, 'Products');
-    const q = query(productsRef, where('title', '>=', searchTerm));
-    const querySnapshot = await getDocs(q);
-    const results = querySnapshot.docs.map((doc) => doc.data());
-
-    setSearchResults(results);
-    setSearchTerm('');
+    getDocs(productsRef)
+      .then((querySnapshot) => {
+        const results = querySnapshot.docs.map((doc) => doc.data());
+        const fuse = new Fuse(results, options);
+        const searchResults = fuse.search(newSearchTerm);
+        const filteredResults = searchResults.map((result) => result.item);
+        onSearch(filteredResults);
+      })
+      .catch((error) => {
+        console.error('Error fetching products:', error);
+      });
   };
 
-  const renderSearchResults = () => {
-    return searchResults.map((product) => (
-      <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-        <Item
-          id={product.id}
-          title={product.title}
-          price={product.price}
-          image={product.image}
-          stock={product.stock}
-        />
-      </Grid>
-    ));
+
+  const handleSearchSubmit = async (event) => {
+      event.preventDefault();
+    
+      const productsRef = collection(db, 'Products');
+      const q = query(productsRef, where('title', '>=', searchTerm.toUpperCase()));
+      const querySnapshot = await getDocs(q);
+      const results = querySnapshot.docs.map((doc) => doc.data());
+      const filteredResults = results.filter(product =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      console.log('Search Results:', filteredResults);
+      console.log('search term:', searchTerm )
+
+      onSearch(filteredResults);
+      setSearchTerm("")
   };
+
+
 
   return (
     <Container>
-      <form onSubmit={handleSearchSubmit}>
         <TextField
           label="Search"
           value={searchTerm}
@@ -57,13 +69,6 @@ const SearchBar = () => {
           }}
           sx={{ marginRight: 2 }}
         />
-        <Button type="submit" variant="contained" sx={{ backgroundColor: 'common.white', color: 'primary.main' }}>
-          Search
-        </Button>
-      </form>
-      <Grid container spacing={2}>
-        {renderSearchResults()}
-      </Grid>
     </Container>
   );
 };

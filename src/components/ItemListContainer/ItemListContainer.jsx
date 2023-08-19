@@ -1,62 +1,80 @@
-import { useEffect, useState } from 'react'
-import ItemList from '../ItemList/ItemList'
-import { useParams } from 'react-router-dom'
-import { getDocs, collection, query, where } from 'firebase/firestore'
-import { db } from '../firebase/config'
-
-
+import React, { useEffect, useState } from 'react';
+import ItemList from '../ItemList/ItemList';
+import SearchBar from '../SearchBar/SearchBar';
+import { useParams } from 'react-router-dom';
+import { getDocs, collection, query, where } from 'firebase/firestore';
+import { db } from '../firebase/config';
+import { Button, Grid  } from '@mui/material';
 
 const ItemListContainer = ({ greeting }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { category } = useParams();
+  const [showAllProducts, setShowAllProducts] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      let response;
+
+      if (category) {
+        const categoryQuery = query(collection(db, 'Products'), where('category', '==', category));
+        response = await getDocs(categoryQuery);
+      } else {
+        const allProductsQuery = collection(db, 'Products');
+        response = await getDocs(allProductsQuery);
+      }
+
+      const productsAdapted = response.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setProducts(productsAdapted);
+      setError(null);
+    } catch (error) {
+      setError('Error loading products. Please try again later.');
+      console.error('Error loading products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
+    fetchData();
 
-    const collectionRef = category
-      ? query(collection(db, 'Products'), where('category', '==', category))
-      : collection(db, 'Products');
-
-    getDocs(collectionRef)
-      .then(response => {
-        const productsAdapted = response.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setProducts(productsAdapted);
-        setError(null);
-      })
-      .catch(error => {
-        setError('Error al cargar los productos. Por favor, inténtalo de nuevo más tarde.');
-        console.error('Error al cargar los productos:', error);
-      })
-      .finally(() => setLoading(false));
   }, [category]);
 
-  if (loading) {
-    return (
-      <div>
-        <h2>{greeting}</h2>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div>
-        <h2>{greeting}</h2>
-        <p>{error}</p>
-      </div>
-    );
-  }
+  const handleSearch = async (searchResults) => { 
+    setProducts(searchResults);
+    setShowAllProducts(false);
+  };
 
   return (
     <div>
       <h2>{greeting}</h2>
+      <Grid container alignItems="center" spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <SearchBar onSearch={handleSearch} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          {!showAllProducts && (
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setShowAllProducts(true);
+                fetchData();
+              }}
+            >
+              Show All Products
+            </Button>
+          )}
+        </Grid>
+      </Grid>
       <ItemList products={products} />
     </div>
   );
 };
 
 export default ItemListContainer;
-
