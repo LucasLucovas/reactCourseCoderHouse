@@ -54,11 +54,7 @@ const ItemListContainer = ({ greeting }) => {
   return (
     <div>
       <h2>{greeting}</h2>
-      <Grid container alignItems="center" spacing={2}>
-        <Grid item xs={12} sm={6}>
           <SearchBar onSearch={handleSearch} />
-        </Grid>
-        <Grid item xs={12} sm={6}>
           {!showAllProducts && (
             <Button
               variant="outlined"
@@ -70,8 +66,6 @@ const ItemListContainer = ({ greeting }) => {
               Show All Products
             </Button>
           )}
-        </Grid>
-      </Grid>
       <ItemList products={products} />
     </div>
   );

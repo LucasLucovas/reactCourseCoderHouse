@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Button, TextField, InputAdornment, Container } from '@mui/material';
+import { TextField, InputAdornment, Grid, Collapse, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { db } from '../firebase/config';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import Fuse from 'fuse.js';
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
+
 
   const handleSearchChange = (event) => {
     const newSearchTerm = event.target.value;
@@ -21,7 +23,13 @@ const SearchBar = ({ onSearch }) => {
     const productsRef = collection(db, 'Products');
     getDocs(productsRef)
       .then((querySnapshot) => {
-        const results = querySnapshot.docs.map((doc) => doc.data());
+        const results = querySnapshot.docs.map((doc) => {
+          const data = doc.data()
+          return {
+            id: doc.id,
+            ...data,
+          }
+        });
         const fuse = new Fuse(results, options);
         const searchResults = fuse.search(newSearchTerm);
         const filteredResults = searchResults.map((result) => result.item);
@@ -33,27 +41,23 @@ const SearchBar = ({ onSearch }) => {
   };
 
 
-  const handleSearchSubmit = async (event) => {
-      event.preventDefault();
-    
-      const productsRef = collection(db, 'Products');
-      const q = query(productsRef, where('title', '>=', searchTerm.toUpperCase()));
-      const querySnapshot = await getDocs(q);
-      const results = querySnapshot.docs.map((doc) => doc.data());
-      const filteredResults = results.filter(product =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      console.log('Search Results:', filteredResults);
-      console.log('search term:', searchTerm )
-
-      onSearch(filteredResults);
-      setSearchTerm("")
+  const handleSearchIconClick = () => {
+    setIsExpanded(!isExpanded);
   };
 
-
-
   return (
-    <Container>
+    <Grid container alignContent={'center'} justifyContent={'center'} mt={5}>
+      <IconButton 
+        onClick={handleSearchIconClick}
+        sx={{
+          position: 'relative',
+          left: isExpanded ? -5 : 120, 
+          transition: 'left 0.6s ease',
+        }}
+        >
+        <SearchIcon />
+      </IconButton>
+      <Collapse in={isExpanded}>
         <TextField
           label="Search"
           value={searchTerm}
@@ -63,13 +67,13 @@ const SearchBar = ({ onSearch }) => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon />
               </InputAdornment>
             ),
           }}
           sx={{ marginRight: 2 }}
         />
-    </Container>
+      </Collapse>
+    </Grid>
   );
 };
 

@@ -20,14 +20,14 @@ const color = {
 
 const Item = ({id, title, image, price, stock}) => {
   return (
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, marginTop: 5}}>
           <CardMedia
-            sx={{ height: 200 }}
+            sx={{ height: 200, width: 345 }}
             image={image}
             title={title}
           />
-          <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
+          <CardContent sx={{ height:170 }}>
+              <Typography gutterBottom variant="h6" fontSize={15} component="div">
                   {title}
               </Typography>
               <Typography variant="body2" color={color.teal}>

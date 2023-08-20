@@ -1,9 +1,11 @@
 import Item from '../Item/Item'
+import { Grid } from '@mui/material'
+
 const ItemList = ({products}) => {
   return (
-    <div className='ListGroup'>
-        {products.map(prod => <Item key={prod.id} {...prod}/>)}
-    </div>
+    <Grid container spacing={2} alignContent={'center'} justifyContent={'center'} sx={{backgroundColor: 'white'}}>
+        {products.map(prod => <Grid item><Item key={prod.id} {...prod}/></Grid>)}
+    </Grid>
   )
 }
 
