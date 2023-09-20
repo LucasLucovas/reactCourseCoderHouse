@@ -1,68 +1,226 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, Container} from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  IconButton,
+  SwipeableDrawer,
+  Button,
+  Hidden,
+  Grid,
+} from '@mui/material';
+import { grey, indigo, teal } from '@mui/material/colors';
+import MenuIcon from '@mui/icons-material/Menu';
 import CartWidget from '../CartWidget/CartWidget';
-import { grey, indigo, teal } from '@mui/material/colors'
+
 
 
 const color = {
   grey: grey[600],
   teal: teal[100],
-  teal1: teal[300],
-  indigo: indigo[100]
-}
+  teal1: teal[500],
+  indigo: indigo[100],
+};
 
 const NavBar = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (open) => () => {
+    setDrawerOpen(open);
+  };
+
+  const mobileMenu = (
+    <SwipeableDrawer
+      anchor="right"
+      open={drawerOpen}
+      onClose={toggleDrawer(false)}
+      onOpen={toggleDrawer(true)}
+    >
+      <Grid 
+        container 
+        flexDirection={'column'} 
+        sx={{backgroundColor: color.teal}}
+        height={"100%"} 
+        >
+        <Grid item ml={1} sx={{borderBottom: 1}}>
+          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/">
+            Home
+          </Button>
+        </Grid>
+        <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
+          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/loggeduser">
+            You
+          </Button>
+        </Grid>
+        <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
+          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/login">
+           Login
+          </Button>
+        </Grid>
+        <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
+          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/signup">
+            Signup
+          </Button>
+        </Grid>
+        <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
+          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/category/men's clothing">
+            Men's clothing
+          </Button>
+        </Grid>
+        <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
+          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/category/jewelery">
+            Jewelry
+          </Button>
+        </Grid>
+        <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
+          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/category/electronics">
+            Electronics
+          </Button>
+        </Grid>
+        <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
+          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/category/women's clothing">
+            Women's Clothing
+          </Button>
+        </Grid>
+      </Grid>
+    </SwipeableDrawer>
+  );
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: color.teal }}>
+    <AppBar position='absolute' sx={{ backgroundColor: color.teal }}>
       <Container>
         <Toolbar>
-          <Typography variant="h6" component={RouterLink} to="/" sx={{ flexGrow: 1, color: 'common.black', textDecoration: 'none' }}>
-              Best Random Ecommerce
+          <Typography
+            variant="h6"
+            component={RouterLink}
+            to="/"
+            sx={{
+              display: 'flex',
+              alignItems:'center',
+              flexGrow: 1,
+              justifyContent:'left',
+              color: 'common.black',
+              textDecoration: 'none',
+            }}
+          >
+            <img style={{width: 70, height: 70, margin: 1}} src="./LogoLDL.png" alt="ecommerce logo" />
           </Typography>
-          <div sx={{ display: 'flex', gap: 2, marginLeft: 2 }}>
-            <Button component={RouterLink} to="/category/men's clothing" sx={{ color: 'common.black', textDecoration: 'none'}}>
-              Men's clothing
-            </Button>
-            <Button component={RouterLink} to="/category/jewelery" sx={{ color: 'common.black', textDecoration: 'none'}}>
-              Jewelry
-            </Button>
-            <Button component={RouterLink} to="/category/electronics" sx={{ color: 'common.black', textDecoration: 'none'}}>
-              Electronics
-            </Button>
-            <Button component={RouterLink} to="/category/women's clothing" sx={{ color: 'common.black', textDecoration: 'none'}}>
-              Women's Clothing
-            </Button>
-            <Button component={RouterLink} variant='outlined'  to="/login" 
-              sx={{
-                  color: 'common.black',
-                  textDecoration: 'none', 
-                  borderColor: color.teal1,
-                  '&:hover':{
-                    borderColor: color.indigo,
-                  },
-                  marginLeft: 1,
-                 }}>
-              Login
-            </Button>
-            <Button component={RouterLink} variant='outlined' to="/signup" 
-              sx={{
-                color: 'common.black',
-                 textDecoration: 'none', 
-                 borderColor: color.teal1,
-                 '&:hover':{
-                  borderColor: color.indigo,
-                 },
-                 marginLeft: 1,
-                }}>
-              Signup
-            </Button>
-            <Button component={RouterLink} to="/loggeduser" sx={{ color: 'common.black', textDecoration: 'none'}}>
-              Logged User
-            </Button>
-          </div>
+          <Hidden mdUp>
+            <IconButton
+              onClick={toggleDrawer(true)}
+              sx={{color: 'common.black'}}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
+          <Hidden smDown>
+            <div sx={{ display: 'flex', gap: 2 }}>
+              <Button
+                component={RouterLink}
+                to="/category/men's clothing"
+                sx={{ 
+                  color: 'common.black', 
+                  textDecoration: 'none',
+                  borderRadius: 0,
+                  '&:focus': {
+                    borderBottom: '1px solid black',
+                    },
+                  }}
+              >
+                Men's clothing
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/category/jewelery"
+                sx={{ 
+                  color: 'common.black', 
+                  textDecoration: 'none',
+                  borderRadius: 0,
+                  '&:focus': {
+                    borderBottom: '1px solid black',
+                    },
+                  }}
+              >
+                Jewelry
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/category/electronics"
+                sx={{ 
+                  color: 'common.black', 
+                  textDecoration: 'none',
+                  borderRadius: 0,
+                  '&:focus': {
+                    borderBottom: '1px solid black',
+                    },
+                  }}
+              >
+                Electronics
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/category/women's clothing"
+                sx={{ 
+                  color: 'common.black', 
+                  textDecoration: 'none',
+                  borderRadius: 0,
+                  '&:focus': {
+                    borderBottom: '1px solid black',
+                    },
+                  }}
+              >
+                Women's Clothing
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/login"
+                sx={{ 
+                  color: 'common.black', 
+                  textDecoration: 'none',
+                  borderRadius: 0,
+                  '&:focus': {
+                    borderBottom: '1px solid black',
+                    },
+                    fontSize: 12,
+                  }}
+              >
+                Login
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/signup"
+                sx={{ 
+                  color: 'common.black', 
+                  textDecoration: 'none',
+                  borderRadius: 0,
+                  '&:focus': {
+                    borderBottom: '1px solid black',
+                    },
+                    fontSize: 12,
+                  }}
+              >
+                Signup
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/loggeduser"
+                sx={{ 
+                  color: 'common.black', 
+                  textDecoration: 'none',
+                  borderRadius: 0,
+                  '&:focus': {
+                    borderBottom: '1px solid black',
+                    },
+                  }}
+              >
+                You
+              </Button>
+            </div>
+          </Hidden>
           <CartWidget />
+          {mobileMenu}
         </Toolbar>
       </Container>
     </AppBar>

@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import { Typography, TextField, Button, Snackbar, Grid } from '@mui/material';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'; 
+import { brown, teal, cyan } from '@mui/material/colors';
+
+const color = {
+  brown: brown['50'],
+  teal: teal['100'],
+  cyan: cyan['100'],
+};
 
 
 const Signup = () => {
@@ -35,24 +42,47 @@ const Signup = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Grid container flexDirection={'column'} justifyContent={"center"} alignContent={"center"} height={'100vh'} bgcolor={color.brown}>
+    <Grid item minWidth={350}>
       <Typography variant="h4">Sign Up</Typography>
+    </Grid>
+    <Grid item>
       <TextField
         label="User Name"
         variant="outlined"
         fullWidth
         margin="normal"
         value={userName}
+        sx={{
+              '& .MuiInputLabel-root.Mui-focused': {
+                color: 'black',
+              },
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: color.cyan, 
+              },
+           }}
         onChange={(e) => setUserName(e.target.value)}
       />
+    </Grid>
+    <Grid item>
       <TextField
         label="Email Address"
         variant="outlined"
         fullWidth
         margin="normal"
         value={email}
+        sx={{
+              '& .MuiInputLabel-root.Mui-focused': {
+                color: 'black',
+              },
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: color.cyan, 
+              },
+            }}
         onChange={(e) => setEmail(e.target.value)}
       />
+    </Grid>
+    <Grid item>
       <TextField
         label="Password"
         variant="outlined"
@@ -60,14 +90,39 @@ const Signup = () => {
         fullWidth
         margin="normal"
         value={password}
+        sx={{
+              '& .MuiInputLabel-root.Mui-focused': {
+                color: 'black',
+              },
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: color.cyan, 
+              },
+            }}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button variant="contained" color="primary" fullWidth onClick={handleSignup}>
+    </Grid>
+    <Grid item>
+      <Button 
+        variant="contained" 
+        color="primary" 
+        fullWidth onClick={handleSignup}
+        sx={{
+                backgroundColor: color.teal, 
+                color: 'black',
+                '&:hover':{
+                  backgroundColor: color.cyan
+                }
+              }}  
+        >
         Sign Up
       </Button>
+    </Grid>
+    <Grid item>
       <Typography variant="body2">
         Already have an account? <Link to="/login">Log In</Link>
       </Typography>
+    </Grid>
+    <Grid item>
       <Snackbar
         open={showSuccessMessage}
         autoHideDuration={6000} 
@@ -79,7 +134,8 @@ const Signup = () => {
           </Button>
         }
       />
-    </Container>
+    </Grid>
+    </Grid>
   );
 };
 

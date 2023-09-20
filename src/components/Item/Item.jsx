@@ -11,30 +11,27 @@ import { grey, teal, indigo } from '@mui/material/colors'
 
 const color = {
   grey: grey[500],
-  teal: teal[300],
+  teal: teal[600],
   indigo: indigo[400]
 }
 
 
 
 
-const Item = ({id, title, image, price, stock}) => {
+const Item = ({id, title, image, price}) => {
   return (
-      <Card sx={{ maxWidth: 345, marginTop: 5}}>
+      <Card sx={{ maxWidth: 228, marginTop: 5}}>
           <CardMedia
-            sx={{ height: 200, width: 345 }}
+            sx={{ height: 142, width: 228 }}
             image={image}
             title={title}
           />
-          <CardContent sx={{ height:170 }}>
-              <Typography gutterBottom variant="h6" fontSize={15} component="div">
+          <CardContent sx={{ height:112 }}>
+              <Typography gutterBottom variant="h6" fontSize={12} component="div">
                   {title}
               </Typography>
-              <Typography variant="body2" color={color.teal}>
+              <Typography variant="body2" fontSize={12} color={color.teal}>
                   ${price}
-              </Typography>
-              <Typography mt={1} variant="body2" color={color.indigo}>
-                  Stock: {stock}
               </Typography>
           </CardContent>
           <CardActions>

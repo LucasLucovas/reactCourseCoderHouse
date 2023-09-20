@@ -53,6 +53,9 @@ const ItemDetail = ({id, title, image, category, description, price, stock}) => 
               <Typography variant="body2" color={color.teal}>
                   ${price}
               </Typography>
+              <Typography mt={1}  variant="body2">
+                  Stock: {stock}
+              </Typography>
               <Typography mt={1} variant="body2" color={color.indigo}>
                       Category: {category}
               </Typography>
