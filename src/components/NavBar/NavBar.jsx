@@ -1,5 +1,8 @@
+//React imports
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+
+//MUI imports
 import {
   AppBar,
   Toolbar,
@@ -10,11 +13,17 @@ import {
   Button,
   Hidden,
   Grid,
+  Modal
 } from '@mui/material';
+
 import { grey, indigo, teal } from '@mui/material/colors';
 import MenuIcon from '@mui/icons-material/Menu';
-import CartWidget from '../CartWidget/CartWidget';
 
+
+//components
+import CartWidget from '../CartWidget/CartWidget';
+import Signup from '../SignUp/SignUp';
+import Login from '../Login/Login';
 
 
 const color = {
@@ -55,15 +64,10 @@ const NavBar = () => {
           </Button>
         </Grid>
         <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
-          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/login">
-           Login
-          </Button>
-        </Grid>
-        <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
-          <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/signup">
+            <Login/>
             Signup
-          </Button>
         </Grid>
+
         <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
           <Button sx={{justifyContent: 'left', color: 'black'}} component={RouterLink} to="/category/men's clothing">
             Men's clothing
@@ -89,7 +93,7 @@ const NavBar = () => {
   );
 
   return (
-    <AppBar position='absolute' sx={{ backgroundColor: color.teal }}>
+    <AppBar position='relative' sx={{ backgroundColor: color.teal }}>
       <Container>
         <Toolbar>
           <Typography
@@ -173,36 +177,9 @@ const NavBar = () => {
               >
                 Women's Clothing
               </Button>
-              <Button
-                component={RouterLink}
-                to="/login"
-                sx={{ 
-                  color: 'common.black', 
-                  textDecoration: 'none',
-                  borderRadius: 0,
-                  '&:focus': {
-                    borderBottom: '1px solid black',
-                    },
-                    fontSize: 12,
-                  }}
-              >
-                Login
-              </Button>
-              <Button
-                component={RouterLink}
-                to="/signup"
-                sx={{ 
-                  color: 'common.black', 
-                  textDecoration: 'none',
-                  borderRadius: 0,
-                  '&:focus': {
-                    borderBottom: '1px solid black',
-                    },
-                    fontSize: 12,
-                  }}
-              >
-                Signup
-              </Button>
+
+              <Login/>
+              <Signup/>
               <Button
                 component={RouterLink}
                 to="/loggeduser"
