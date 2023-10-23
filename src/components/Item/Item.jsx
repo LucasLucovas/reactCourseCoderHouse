@@ -1,18 +1,18 @@
-import { Link } from 'react-router-dom'
+//Component imports
+import ItemDetailContainer from '../ItemDetailContainer/ItemDetailContainer';
 
 //Mui imports
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { grey, teal, indigo } from '@mui/material/colors'
+import { grey, teal, cyan } from '@mui/material/colors'
 
 const color = {
-  grey: grey[500],
-  teal: teal[600],
-  indigo: indigo[400]
+  grey: grey[100],
+  teal: teal[100],
+  cyan: cyan[100],
 }
 
 
@@ -20,7 +20,7 @@ const color = {
 
 const Item = ({id, title, image, price}) => {
   return (
-      <Card sx={{ maxWidth: 228, marginTop: 5}}>
+      <Card sx={{ maxWidth: 228, marginTop: 5, backgroundColor: color.grey}}>
           <CardMedia
             sx={{ height: 142, width: 228 }}
             image={image}
@@ -30,14 +30,12 @@ const Item = ({id, title, image, price}) => {
               <Typography gutterBottom variant="h6" fontSize={12} component="div">
                   {title}
               </Typography>
-              <Typography variant="body2" fontSize={12} color={color.teal}>
+              <Typography variant="body2" fontSize={14} color={color.teal}>
                   ${price}
               </Typography>
           </CardContent>
           <CardActions>
-              <Button variant='outlined' component={Link} to={`/item/${id}`}>
-                  See Details
-              </Button>
+           {/* <ItemDetailContainer/> */}
           </CardActions>
       </Card>
   )

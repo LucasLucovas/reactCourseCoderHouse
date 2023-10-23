@@ -12,8 +12,7 @@ import {
   SwipeableDrawer,
   Button,
   Hidden,
-  Grid,
-  Modal
+  Grid
 } from '@mui/material';
 
 import { grey, indigo, teal } from '@mui/material/colors';
@@ -65,7 +64,7 @@ const NavBar = () => {
         </Grid>
         <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
             <Login/>
-            Signup
+            <Signup/>
         </Grid>
 
         <Grid item ml={1} mt={1} sx={{borderBottom: 1}}>
