@@ -131,7 +131,7 @@ const ItemDetail = ({id}) => {
                       quantityAdded > 0 ? (
                           <Link to={'/cart'}>Finish Shopping</Link>
                       ) : (
-                          <ItemCount initial={1} maxStock={null} onAdd={handleOnAdd}/>
+                          <ItemCount initial={1} maxStock={product.stock} onAdd={handleOnAdd}/>
                       )
                   }
             </CardActions>
