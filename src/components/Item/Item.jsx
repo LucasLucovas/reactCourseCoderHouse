@@ -1,5 +1,5 @@
 //Component imports
-import ItemDetailContainer from '../ItemDetailContainer/ItemDetailContainer';
+import ItemDetail from '../ItemDetail/ItemDetail'
 
 //Mui imports
 import Card from '@mui/material/Card';
@@ -9,11 +9,14 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { grey, teal, cyan } from '@mui/material/colors'
 
+
+
 const color = {
   grey: grey[100],
   teal: teal[100],
   cyan: cyan[100],
 }
+
 
 
 
@@ -35,7 +38,7 @@ const Item = ({id, title, image, price}) => {
               </Typography>
           </CardContent>
           <CardActions>
-           {/* <ItemDetailContainer/> */}
+              <ItemDetail id={id}/>
           </CardActions>
       </Card>
   )
