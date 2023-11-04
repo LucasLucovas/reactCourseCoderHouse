@@ -37,6 +37,7 @@ const color = {
 
 const ItemDetail = ({id}) => {
   const [product, setProduct] = useState(null)
+  const [quantityAdded, setQuantityAdded] = useState(0)
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -59,7 +60,6 @@ const ItemDetail = ({id}) => {
         .finally(() => setLoading(false));
   }, [id]);
   
-  const [quantityAdded, setQuantityAdded] = useState(0)
   
   const { addItem } = useContext(CartContext)
 
@@ -70,7 +70,9 @@ const ItemDetail = ({id}) => {
     setQuantityAdded(quantity)
 
     const item = {
-      id, title, price
+      id: product.id,
+      title: product.title, 
+      price: product.price,
     }
 
     addItem(item, quantity)
@@ -131,7 +133,7 @@ const ItemDetail = ({id}) => {
                       quantityAdded > 0 ? (
                           <Link to={'/cart'}>Finish Shopping</Link>
                       ) : (
-                          <ItemCount initial={1} maxStock={product.stock} onAdd={handleOnAdd}/>
+                          <ItemCount initial={1} maxStock={product ? product.stock : ''} onAdd={handleOnAdd}/>
                       )
                   }
             </CardActions>

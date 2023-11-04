@@ -6,10 +6,13 @@ import Button from '@mui/material/Button';
 import { Grid, IconButton, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { indigo } from '@mui/material/colors';
+import { teal, indigo, brown, cyan } from '@mui/material/colors'
 
 const color ={
-    indigo: indigo[500]
+    indigo: indigo[500],
+    tealbutton: teal[100],
+    brown: brown[50],
+    cyan: cyan[100],
 }
 
 const ItemCount = ({maxStock, initial, onAdd}) => {
@@ -42,7 +45,19 @@ const ItemCount = ({maxStock, initial, onAdd}) => {
         </Grid>
         <Grid item>
             <div>
-                <Button size='small' variant='contained' onClick={() => onAdd(quantityCounter)} disabled={!maxStock}>
+                <Button 
+                    size='small' 
+                    variant='contained' 
+                    onClick={() => onAdd(quantityCounter)} 
+                    disabled={!maxStock}
+                    sx={{
+                        backgroundColor: color.tealbutton,
+                        color: 'black',
+                        '&:hover': {
+                        backgroundColor: color.cyan,
+                        },
+                    }}
+                    >
                     Add to Cart
                 </Button>
             </div>
