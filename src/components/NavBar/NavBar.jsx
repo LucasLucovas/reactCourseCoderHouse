@@ -91,9 +91,14 @@ const NavBar = () => {
     </SwipeableDrawer>
   );
   return (
-    <AppBar position='relative' sx={{ backgroundColor: color.teal }}>
-      <Container>
-        <Toolbar>
+    <AppBar 
+      position='relative' 
+      sx={{ 
+            backgroundColor: color.teal, 
+            width: '100%',
+            }}
+            >
+        <Toolbar sx={{ padding: 0, margin:0 }}>
           <Typography
             variant="h6"
             component={RouterLink}
@@ -107,7 +112,7 @@ const NavBar = () => {
               textDecoration: 'none',
             }}
           >
-            <img style={{width: 70, height: 70, margin: 1}} src={'/LogoLDL.png'} alt="ecommerce logo" />
+            <img style={{width: 70, height: 70}} src={'/LogoLDL.png'} alt="ecommerce logo" />
           </Typography>
           <Hidden mdUp>
             <IconButton
@@ -197,7 +202,6 @@ const NavBar = () => {
           <CartWidget />
           {mobileMenu}
         </Toolbar>
-      </Container>
     </AppBar>
   );
 };

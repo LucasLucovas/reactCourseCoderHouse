@@ -1,7 +1,12 @@
+//React imports
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+
+//Components imports
 import ItemList from '../ItemList/ItemList';
 import SearchBar from '../SearchBar/SearchBar';
-import { useParams } from 'react-router-dom';
+//Context imports
 import { useProducts } from '../../context/ProductContext';
 
 const ItemListContainer = () => {
