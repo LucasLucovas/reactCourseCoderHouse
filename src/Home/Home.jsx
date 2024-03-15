@@ -24,7 +24,8 @@ const Home = () => {
             backgroundColor: "rgba(184, 214, 209, 0.911)",
             boxShadow: 'lg',
             width: '25rem',
-            height:'auto'
+            height:'auto',
+            padding: '1rem'
           }}
           >
           <h2 style={{margin: 0 }}>We make your dreams clothes come true</h2>
@@ -49,16 +50,6 @@ const Home = () => {
             </Box>
           </Box>
       </Box>
-        {/* <Link
-          color="primary"
-          disabled={false}
-          level="body-sm"
-          underline="none"
-          variant="plain"
-          href="https://www.pexels.com"
-        >
-          Photos provided by Pexels
-        </Link> */}
       </div>
       <Footer/>
     </>
