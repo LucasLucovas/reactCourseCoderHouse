@@ -48,17 +48,6 @@ export default function Footer() {
             <MailOutlineIcon/>
           </Link>
         </IconButton>
-         <Link
-          color=""
-          disabled={false}
-          level="body-sm"
-          underline="none"
-          variant="plain"
-          href="https://www.pexels.com"
-          sx={{position:'absolute', right: 50}}
-        >
-          Photos provided by Pexels
-        </Link>
       </Box>
       
     </Sheet>
