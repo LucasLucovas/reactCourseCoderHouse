@@ -41,6 +41,7 @@ const NavBar = () => {
 
   const mobileMenu = (
     <SwipeableDrawer
+      disableSwipeToOpen='true'
       anchor="right"
       open={drawerOpen}
       onClose={toggleDrawer(false)}
